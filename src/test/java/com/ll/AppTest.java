@@ -92,7 +92,34 @@ public class AppTest {
 
         String rs  = byteArrayOutputStream.toString();
 
-        assertThat(rs).contains("2 / 박명수 / 어려운 길은 길이 아니다.");
+        assertThat(rs).contains("1 / 박명수 / 늦었다고 생각했을 때가 제일 늦었다.");
         TestUtil.clearSetOutToByteArray(byteArrayOutputStream);
+        System.out.println(rs);
+    }
+
+    @Test
+    @DisplayName("삭제 명령어를 통해 명언 삭제")
+    void removeContent(){
+        ByteArrayOutputStream byteArrayOutputStream = TestUtil.setOutToByteArray();
+        Scanner scanner = TestUtil.genScanner("""
+                등록
+                늦었다고 생각했을 때가 제일 늦었다.
+                박명수
+                등록
+                어려운 길은 길이 아니다.
+                박명수
+                목록
+                삭제?id=1&author=박명수
+                목록
+                종료
+                """.stripIndent());
+        new App(scanner).run();
+        scanner.close();
+
+        String rs  = byteArrayOutputStream.toString();
+
+        assertThat(rs).contains("1번 명언이 삭제되었습니다.");
+        TestUtil.clearSetOutToByteArray(byteArrayOutputStream);
+        System.out.println(rs);
     }
 }

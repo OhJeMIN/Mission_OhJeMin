@@ -1,6 +1,3 @@
-
-[ ] 
-
 ### 1주차 미션 요약
 
 ---
@@ -8,8 +5,8 @@
 **[체크 리스트]**
 
 - 1단계
-    -[x] TestUtil 활용하여 AppTest 코드 작성
-    -[x] TDD 활용하여 1단계 Test가 통과하기
+  -[x] TestUtil 활용하여 AppTest 코드 작성
+  -[x] TDD 활용하여 1단계 Test가 통과하기
 - 2단계
   -[x] `등록` 명령어 입력 시 명언 및 작가 입력 창 뜨게 하기
   -[x] `종료` 명령어를 입력해야 끝나야 하므로 Test 콘솔 창에 `명령)` 이 나온채로 끝나야함 
@@ -23,6 +20,15 @@
   - [x] 명언 등록시 생성자를 통해서 명언 객체 생성
   - [x] 명언 객체를 저장하는 `Quotations` 리스트 생성
   - [x] `Quotations` 리스트를 통해 목록 불러오기
+- 6단계
+  - [ ] 명령문에 param이 포함된 명령문 받기
+  - [ ] 복수 param 명령 받기
+  - [ ] param이 없는 명령 예외 처리하기
+  - [ ] 복수 param을 받아 저장하는 `Rq` 클래스 생성
+  - [ ] `Rq` 클래스에서 명령문을 분석해 param 안의 key와 value를 하나로 저장
+  - [ ] 하나로 저장된 param을 key를 통해서 원하는 값을 가져올 수 있도록 함
+  - [ ] 삭제 명령어를 통해 해당 id 삭제
+  - [x] 삭제 후 삭제 안내문 출력
 
 
 ---
@@ -36,12 +42,16 @@
 - 구현 과정에 따라 어떤 결과물이 나오게 되었는지 최대한 상세하게 작성해주시기 바랍니다.
 
 - 1단계
+
+
   ![image](https://github.com/OhJeMIN/Mission_OhJeMin/assets/61536578/82365de4-a76a-4dec-ae6a-cc9c4f60e373)
   ```
   1단계는 그저 genScanner를 통해 그저 테스트가 잘 통과하는지만 확인
   ```
 ---
 - 2단계
+
+
   ![image](https://github.com/OhJeMIN/Mission_OhJeMin/assets/61536578/b772a57b-f364-4182-a58d-925a0fd3de5c)
   ```
   `등록` 명령어 입력 시 명언 및 작가가 Test 콘솔창에 뜨는지 확인
@@ -49,16 +59,22 @@
   ```
 ---
 - 3단계
+
+
   ![image](https://github.com/OhJeMIN/Mission_OhJeMin/assets/61536578/1b24d9fb-1593-4cd2-9c41-0929bbbc38d0)
   ```
   `등록` 명령어를 통해 안내문 출력이 되기만 하면 된다는 생각으로 요구사항과 같이 출력되도록 함
   ```
 - 4단계
+
+
   ![image](https://github.com/OhJeMIN/Mission_OhJeMin/assets/61536578/91de67d7-b219-4146-b352-2573b58148d1)
   ```
   `등록` 명령어를 통해 안내문 번호 증가하면서 출력되게 함
   ```
 - 5단계
+
+
   ![image](https://github.com/OhJeMIN/Mission_OhJeMin/assets/61536578/4313f811-7c07-4d34-97e9-83ce87559bc3)
   ```
   목록을 명언, id, 작가의 데이터를 각기 다른 리스트에 저장하려니 관리하기 힘들고 코드가 길어졌습니다.

@@ -14,7 +14,7 @@ public class App {
     }
     void run(){
         System.out.println("== 명언 앱 ==");
-
+        Quotations = new ArrayList<>();
         while(true){
             System.out.println("명령) ");
             String cmd = scanner.nextLine();
@@ -25,7 +25,6 @@ public class App {
                 String authorName = scanner.nextLine();
                 contentId++;
                 Quotation quotation = new Quotation(contentId,content,authorName);
-                Quotations = new ArrayList<>();
                 Quotations.add(quotation);
                 System.out.println(quotation.getId()+"번 명언이 등록되었습니다.");
             }
@@ -36,6 +35,19 @@ public class App {
                     Quotation quotation = Quotations.get(i);
                     System.out.println(quotation.getId()+" / "+quotation.getAuthorName()+" / "+ quotation.getContent());
                 }
+            }
+            else if(cmd.startsWith("삭제")){
+                String[] cmdBits = cmd.split("\\?",2);
+                String[] param = cmdBits[1].split("&");
+                int id = 0;
+                for(int i=0; i< param.length;i++){
+                    String[] paramValue = param[i].split("=");
+                    String key = paramValue[0];
+                    String value = paramValue[1];
+                    if(key.equals("id")) id = Integer.parseInt(value)-1;
+                }
+                Quotations.remove(id);
+                System.out.println(id+1 +"번 명언이 삭제되었습니다.");
             }
             else{
                 break;
