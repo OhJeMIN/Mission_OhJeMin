@@ -18,6 +18,9 @@ public class Rq {
         if(cmdBits.length == 1){
             return;
         }
+        if(cmdBits[1].isBlank()){
+            return;
+        }
         paramMap = new HashMap<>();
         String[] param = cmdBits[1].split("&");
         for(int i=0; i< param.length;i++){
@@ -25,6 +28,14 @@ public class Rq {
             String key = paramValue[0];
             String value = paramValue[1];
             paramMap.put(key,value);
+        }
+    }
+    int getParamAsInt(String key, int defaultValue){
+        try{
+            int id = Integer.parseInt(paramMap.get(key));
+            return id;
+        }catch (NullPointerException e){
+            return defaultValue;
         }
     }
 }

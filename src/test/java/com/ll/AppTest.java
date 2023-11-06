@@ -122,4 +122,30 @@ public class AppTest {
         TestUtil.clearSetOutToByteArray(byteArrayOutputStream);
         System.out.println(rs);
     }
+
+    @Test
+    @DisplayName("param이 없는 명령문 예외처리")
+    void paramExceptionHandling(){
+        ByteArrayOutputStream byteArrayOutputStream = TestUtil.setOutToByteArray();
+        Scanner scanner = TestUtil.genScanner("""
+                등록
+                늦었다고 생각했을 때가 제일 늦었다.
+                박명수
+                등록
+                어려운 길은 길이 아니다.
+                박명수
+                목록
+                삭제?
+                목록
+                종료
+                """.stripIndent());
+        new App(scanner).run();
+        scanner.close();
+
+        String rs  = byteArrayOutputStream.toString();
+
+        assertThat(rs).contains("id를 입력해주세요.");
+        TestUtil.clearSetOutToByteArray(byteArrayOutputStream);
+        System.out.println(rs);
+    }
 }

@@ -23,7 +23,7 @@
 - 6단계
   - [x] 명령문에 param이 포함된 명령문 받기
   - [x] 복수 param 명령 받기
-  - [ ] param이 없는 명령 예외 처리하기
+  - [x] param이 없는 명령 예외 처리하기
   - [x] 복수 param을 받아 저장하는 `Rq` 클래스 생성
   - [x] `Rq` 클래스에서 명령문을 분석해 param 안의 key와 value를 하나로 저장
   - [x] 하나로 저장된 param을 key를 통해서 원하는 값을 가져올 수 있도록 함
@@ -82,6 +82,19 @@
   생성된 객체를 저장하는 리스트를 만들어 목록 출력을 편하게 하는것에 초점을 맞춰 코드를 짰습니다.
   ```
 
+- 6단계
+
+
+![image](https://github.com/OhJeMIN/Mission_OhJeMin/assets/61536578/cb6164fb-af68-45ec-bfca-be4764626805)
+![image](https://github.com/OhJeMIN/Mission_OhJeMin/assets/61536578/cd02241d-0025-4ebf-9272-e12fcc131392)
+  ```
+  1. 명령문이 단일 명령문이 아닌 복수 명령문이라서 따로 나눠서 저장하면 복잡해질꺼라 생각했습니다.
+  그래서 그것을 나눠서 분석하여 저장하는 `Rq` 클래스를 만들어 명령문과 param을 나눠서 저장했습니다.
+  param은 hashMap의 key와 value를 통해 저장했습니다. 
+  
+  2. 복수 명령문을 토대로 코드를 짜다보니 단일 명령문일 때와 param을 넣지 않았을 때 에러가 발생했습니다. 그래서 단일 명령문은 
+  split한게 길이가 1개면 return, 강의 때 배운 isBlank를 사용해 param이 없다면 return하도록 했습니다.
+  ```
 **[특이사항]**
 
 구현 과정에서 아쉬웠던 점 / 궁금했던 점을 정리합니다.

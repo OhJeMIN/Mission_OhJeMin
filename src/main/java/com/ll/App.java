@@ -38,17 +38,17 @@ public class App {
                 }
             }
             else if(rq.getCmd().startsWith("삭제")){
-                String[] cmdBits = cmd.split("\\?",2);
-                String[] param = cmdBits[1].split("&");
-                int id = 0;
-                for(int i=0; i< param.length;i++){
-                    String[] paramValue = param[i].split("=");
-                    String key = paramValue[0];
-                    String value = paramValue[1];
-                    if(key.equals("id")) id = Integer.parseInt(value)-1;
+                int id = rq.getParamAsInt("id",0);
+                if(id == 0){
+                    System.out.println("id를 입력해주세요.");
                 }
-                Quotations.remove(id);
-                System.out.println(id+1 +"번 명언이 삭제되었습니다.");
+                for(int i=0;i<Quotations.size();i++){
+                    Quotation quotation = Quotations.get(i);
+                    if(quotation.getId() == id){
+                        Quotations.remove(id-1);
+                        System.out.println(id +"번 명언이 삭제되었습니다.");
+                    }
+                }
             }
             else{
                 break;
