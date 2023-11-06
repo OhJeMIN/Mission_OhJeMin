@@ -18,7 +18,8 @@ public class App {
         while(true){
             System.out.println("명령) ");
             String cmd = scanner.nextLine();
-            if(cmd.equals("등록")){
+            Rq rq = new Rq(cmd);
+            if(rq.getCmd().equals("등록")){
                 System.out.println("명언 : ");
                 String content = scanner.nextLine();
                 System.out.println("작가 : ");
@@ -28,7 +29,7 @@ public class App {
                 Quotations.add(quotation);
                 System.out.println(quotation.getId()+"번 명언이 등록되었습니다.");
             }
-            else if(cmd.equals("목록")){
+            else if(rq.getCmd().equals("목록")){
                 System.out.println("번호 / 작가 / 명언");
                 System.out.println("----------------------");
                 for(int i=Quotations.size()-1;i>=0;i--){
@@ -36,7 +37,7 @@ public class App {
                     System.out.println(quotation.getId()+" / "+quotation.getAuthorName()+" / "+ quotation.getContent());
                 }
             }
-            else if(cmd.startsWith("삭제")){
+            else if(rq.getCmd().startsWith("삭제")){
                 String[] cmdBits = cmd.split("\\?",2);
                 String[] param = cmdBits[1].split("&");
                 int id = 0;
