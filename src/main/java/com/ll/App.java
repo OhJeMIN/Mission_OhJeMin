@@ -18,6 +18,7 @@ public class App {
                 String content = scanner.nextLine();
                 System.out.println("작가 : ");
                 String authorName = scanner.nextLine();
+                System.out.println("1번 명언이 등록되었습니다.");
             }
             else{
                 break;

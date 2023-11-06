@@ -3,7 +3,10 @@ package com.ll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Scanner;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class AppTest {
     @Test
@@ -27,5 +30,24 @@ public class AppTest {
                 """.stripIndent());
         new App(scanner).run();
         scanner.close();
+    }
+
+    @Test
+    @DisplayName("등록 후 안내문 출력")
+    void increaseOfIndex(){
+        ByteArrayOutputStream byteArrayOutputStream = TestUtil.setOutToByteArray();
+        Scanner scanner = TestUtil.genScanner("""
+                등록
+                늦었다고 생각했을 때가 제일 늦었다.
+                박명수
+                종료
+                """.stripIndent());
+        new App(scanner).run();
+        scanner.close();
+
+        String rs  = byteArrayOutputStream.toString();
+
+        assertThat(rs).contains("1번 명언이 등록되었습니다.");
+        TestUtil.clearSetOutToByteArray(byteArrayOutputStream);
     }
 }
