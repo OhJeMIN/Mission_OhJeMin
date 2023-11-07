@@ -148,4 +148,58 @@ public class AppTest {
         TestUtil.clearSetOutToByteArray(byteArrayOutputStream);
         System.out.println(rs);
     }
+
+    @Test
+    @DisplayName("존재하지 않는 명언삭제에 대한 예외처리")
+    void notExistQuotation() {
+        ByteArrayOutputStream byteArrayOutputStream = TestUtil.setOutToByteArray();
+        Scanner scanner = TestUtil.genScanner("""
+                등록
+                늦었다고 생각했을 때가 제일 늦었다.
+                박명수
+                등록
+                어려운 길은 길이 아니다.
+                박명수
+                목록
+                삭제?id=2
+                삭제?id=2
+                종료
+                """.stripIndent());
+        new App(scanner).run();
+        scanner.close();
+
+        String rs = byteArrayOutputStream.toString();
+        assertThat(rs).contains("2번 명언은 존재하지 않습니다.");
+        TestUtil.clearSetOutToByteArray(byteArrayOutputStream);
+        System.out.println(rs);
+    }
+
+    @Test
+    @DisplayName("수정 명령문 시 기존 명언, 작가 출력")
+    void modifyQuotation(){
+        ByteArrayOutputStream byteArrayOutputStream = TestUtil.setOutToByteArray();
+        Scanner scanner = TestUtil.genScanner("""
+                등록
+                늦었다고 생각했을 때가 제일 늦었다.
+                박명수
+                등록
+                어려운 길은 길이 아니다.
+                박명수
+                목록
+                삭제?id=2
+                목록
+                수정?id=1
+                꿈은 없고요. 그냥 놀고 싶습니다
+                박명수333
+                목록
+                종료
+                """.stripIndent());
+        new App(scanner).run();
+        scanner.close();
+
+        String rs = byteArrayOutputStream.toString();
+        assertThat(rs).contains("명언(기존) : 늦었다고 생각했을 때가 제일 늦었다.");
+        TestUtil.clearSetOutToByteArray(byteArrayOutputStream);
+        System.out.println(rs);
+    }
 }

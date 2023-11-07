@@ -38,17 +38,53 @@ public class App {
                 }
             }
             else if(rq.getCmd().startsWith("삭제")){
+                System.out.println(rq.getCmd());
                 int id = rq.getParamAsInt("id",0);
                 if(id == 0){
                     System.out.println("id를 입력해주세요.");
                 }
+                int num = -1;
                 for(int i=0;i<Quotations.size();i++){
                     Quotation quotation = Quotations.get(i);
                     if(quotation.getId() == id){
-                        Quotations.remove(id-1);
-                        System.out.println(id +"번 명언이 삭제되었습니다.");
+                        num = id-1;
                     }
                 }
+                if(num == -1){
+                    System.out.println(id+ "번 명언은 존재하지 않습니다.");
+                    return;
+                }
+                Quotations.remove(id-1);
+                System.out.println(id +"번 명언이 삭제되었습니다.");
+            }
+            else if(rq.getCmd().equals("수정")){
+                int id = rq.getParamAsInt("id",0);
+                if(id == 0){
+                    System.out.println("id를 입력해주세요.");
+                    return;
+                }
+                int num = -1;
+                for(int i=0;i<Quotations.size();i++){
+                    Quotation quotation = Quotations.get(i);
+                    if(quotation.getId() == id){
+                        num = i;
+                    }
+                }
+                if(num == -1){
+                    System.out.println(id+ "번 명언은 존재하지 않습니다.");
+                    return;
+                }
+                Quotation quotation = Quotations.get(num);
+                System.out.println("명언(기존) : " + quotation.getContent());
+                System.out.print("명언 : ");
+                String content = scanner.nextLine();
+
+                System.out.println("작가(기존) : " + quotation.getAuthorName());
+                System.out.print("작가 : ");
+                String authorName = scanner.nextLine();
+
+                quotation.setContent(content);
+                quotation.setAuthorName(authorName);
             }
             else{
                 break;
