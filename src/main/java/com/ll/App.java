@@ -38,18 +38,11 @@ public class App {
                 }
             }
             else if(rq.getCmd().startsWith("삭제")){
-                System.out.println(rq.getCmd());
                 int id = rq.getParamAsInt("id",0);
                 if(id == 0){
                     System.out.println("id를 입력해주세요.");
                 }
-                int num = -1;
-                for(int i=0;i<Quotations.size();i++){
-                    Quotation quotation = Quotations.get(i);
-                    if(quotation.getId() == id){
-                        num = id-1;
-                    }
-                }
+                int num = verifyId(id,-1);
                 if(num == -1){
                     System.out.println(id+ "번 명언은 존재하지 않습니다.");
                     return;
@@ -63,13 +56,8 @@ public class App {
                     System.out.println("id를 입력해주세요.");
                     return;
                 }
-                int num = -1;
-                for(int i=0;i<Quotations.size();i++){
-                    Quotation quotation = Quotations.get(i);
-                    if(quotation.getId() == id){
-                        num = i;
-                    }
-                }
+                int num = verifyId(id,-1);
+
                 if(num == -1){
                     System.out.println(id+ "번 명언은 존재하지 않습니다.");
                     return;
@@ -91,5 +79,15 @@ public class App {
             }
         }
 
+    }
+
+    int verifyId(int id, int defaultValue){
+        for(int i=0;i<Quotations.size();i++){
+            Quotation quotation = Quotations.get(i);
+            if(quotation.getId() == id){
+                return i;
+            }
+        }
+        return defaultValue;
     }
 }
