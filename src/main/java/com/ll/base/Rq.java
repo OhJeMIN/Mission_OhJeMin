@@ -1,4 +1,4 @@
-package com.ll;
+package com.ll.base;
 
 import lombok.Getter;
 
@@ -30,7 +30,7 @@ public class Rq {
             paramMap.put(key,value);
         }
     }
-    int getParamAsInt(String key, int defaultValue){
+    public int getParamAsInt(String key, int defaultValue){
         try{
             int id = Integer.parseInt(paramMap.get(key));
             return id;
