@@ -206,4 +206,17 @@ public class AppTest {
                        .contains("output.txt에서 가져왔습니다.");
 
     }
+    @Test
+    @DisplayName("등록 없이 목록 명령어 시 목록 나오게 하기")
+    void justReadFile(){
+        String out = run("""
+                목록
+                종료
+                """);
+        System.out.println(out);
+        assertThat(out).contains("2 / 박명수 / 늦었다고 생각했을 때가 제일 늦었다.")
+                .contains("1 / 박명수333 / 꿈은 없고요. 그냥 놀고 싶습니다")
+                .contains("output.txt에서 가져왔습니다.");
+
+    }
 }
