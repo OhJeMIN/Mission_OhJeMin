@@ -20,65 +20,81 @@ public class App {
             String cmd = scanner.nextLine();
             Rq rq = new Rq(cmd);
             if(rq.getCmd().equals("등록")){
-                System.out.println("명언 : ");
-                String content = scanner.nextLine();
-                System.out.println("작가 : ");
-                String authorName = scanner.nextLine();
-                contentId++;
-                Quotation quotation = new Quotation(contentId,content,authorName);
-                Quotations.add(quotation);
-                System.out.println(quotation.getId()+"번 명언이 등록되었습니다.");
+                actionRegister();
             }
             else if(rq.getCmd().equals("목록")){
-                System.out.println("번호 / 작가 / 명언");
-                System.out.println("----------------------");
-                for(int i=Quotations.size()-1;i>=0;i--){
-                    Quotation quotation = Quotations.get(i);
-                    System.out.println(quotation.getId()+" / "+quotation.getAuthorName()+" / "+ quotation.getContent());
-                }
+                actionList();
             }
             else if(rq.getCmd().startsWith("삭제")){
-                int id = rq.getParamAsInt("id",0);
-                if(id == 0){
-                    System.out.println("id를 입력해주세요.");
-                }
-                int num = verifyId(id,-1);
-                if(num == -1){
-                    System.out.println(id+ "번 명언은 존재하지 않습니다.");
-                    return;
-                }
-                Quotations.remove(id-1);
-                System.out.println(id +"번 명언이 삭제되었습니다.");
+                actionRemove(rq);
             }
             else if(rq.getCmd().equals("수정")){
-                int id = rq.getParamAsInt("id",0);
-                if(id == 0){
-                    System.out.println("id를 입력해주세요.");
-                    return;
-                }
-                int num = verifyId(id,-1);
-
-                if(num == -1){
-                    System.out.println(id+ "번 명언은 존재하지 않습니다.");
-                    return;
-                }
-                Quotation quotation = Quotations.get(num);
-                System.out.println("명언(기존) : " + quotation.getContent());
-                System.out.print("명언 : ");
-                String content = scanner.nextLine();
-
-                System.out.println("작가(기존) : " + quotation.getAuthorName());
-                System.out.print("작가 : ");
-                String authorName = scanner.nextLine();
-
-                quotation.setContent(content);
-                quotation.setAuthorName(authorName);
+                actionModify(rq);
             }
             else{
                 break;
             }
         }
 
+    }
+
+    private void actionModify(Rq rq) {
+        int id = rq.getParamAsInt("id",0);
+        if(id == 0){
+            System.out.println("id를 입력해주세요.");
+            return;
+        }
+        int num = verifyId(id,-1);
+
+        if(num == -1){
+            System.out.println(id+ "번 명언은 존재하지 않습니다.");
+            return;
+        }
+        Quotation quotation = Quotations.get(num);
+        System.out.println("명언(기존) : " + quotation.getContent());
+        System.out.print("명언 : ");
+        String content = scanner.nextLine();
+
+        System.out.println("작가(기존) : " + quotation.getAuthorName());
+        System.out.print("작가 : ");
+        String authorName = scanner.nextLine();
+
+        quotation.setContent(content);
+        quotation.setAuthorName(authorName);
+    }
+
+    private void actionRemove(Rq rq) {
+        int id = rq.getParamAsInt("id",0);
+        if(id == 0){
+            System.out.println("id를 입력해주세요.");
+        }
+        int num = verifyId(id,-1);
+        if(num == -1){
+            System.out.println(id+ "번 명언은 존재하지 않습니다.");
+            return;
+        }
+        Quotations.remove(num);
+        System.out.println(id +"번 명언이 삭제되었습니다.");
+    }
+
+    private void actionList() {
+        System.out.println("번호 / 작가 / 명언");
+        System.out.println("----------------------");
+        for(int i=Quotations.size()-1;i>=0;i--){
+            Quotation quotation = Quotations.get(i);
+            System.out.println(quotation.getId()+" / "+quotation.getAuthorName()+" / "+ quotation.getContent());
+        }
+    }
+
+    private void actionRegister() {
+        System.out.println("명언 : ");
+        String content = scanner.nextLine();
+        System.out.println("작가 : ");
+        String authorName = scanner.nextLine();
+        contentId++;
+        Quotation quotation = new Quotation(contentId,content,authorName);
+        Quotations.add(quotation);
+        System.out.println(quotation.getId()+"번 명언이 등록되었습니다.");
     }
 
     int verifyId(int id, int defaultValue){
