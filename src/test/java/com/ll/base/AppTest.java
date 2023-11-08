@@ -156,6 +156,7 @@ public class AppTest {
                 종료
                 """);
         assertThat(out).contains("output.txt에 저장했습니다.");
+        System.out.println(out);
 
     }
 

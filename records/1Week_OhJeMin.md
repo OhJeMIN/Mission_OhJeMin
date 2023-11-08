@@ -130,8 +130,7 @@
 - 9단계
 
 
-![image](https://github.com/OhJeMIN/Mission_OhJeMin/assets/61536578/1b26e6a6-6c2a-413c-baca-dcfde7c0e85e)
-
+![image](https://github.com/OhJeMIN/Mission_OhJeMin/assets/61536578/cabb58d8-56cb-4fbb-95e9-ee697dc02a9b)
   ```
   1. 등록 시 파일에 저장되고 목록을 불러 올때에는 파일에서 불러와 quotation 객체에 저장하고 Quotations
   리스트에 저장하여 쓰다가 리스트를 비우도록 했습니다. 
