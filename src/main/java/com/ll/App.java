@@ -101,14 +101,23 @@ public class App {
         String content = scanner.nextLine();
         System.out.println("작가 : ");
         String authorName = scanner.nextLine();
-        contentId++;
+        contentId=MaxId(0) + 1;
         Quotation quotation = new Quotation(contentId, content, authorName);
         //To verify writeFile -- 2023-11-08
         //Quotations.add(quotation);
         writeFile(quotation);
         System.out.println(quotation.getId() + "번 명언이 등록되었습니다.");
     }
-
+    int MaxId(int defaultValue){
+        readFile();
+        try{
+            int maxId =  Quotations.get(Quotations.size()-1).getId();
+            Quotations.clear();
+            return maxId;
+        }catch (IndexOutOfBoundsException e){
+         return defaultValue;
+        }
+    }
     int verifyId(int id, int defaultValue) {
         readFile();
         for (int i = 0; i < Quotations.size(); i++) {

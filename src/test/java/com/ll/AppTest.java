@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AppTest {
 
-    private String run(String cmd){
+    private String run(String cmd) {
         ByteArrayOutputStream byteArrayOutputStream = TestUtil.setOutToByteArray();
         Scanner scanner = TestUtil.genScanner(cmd.stripIndent());
         new App(scanner).run();
@@ -21,9 +21,10 @@ public class AppTest {
 
         return rs.trim();
     }
+
     @Test
     @DisplayName("종료 입력 시 프로그램 종료.")
-    void inputFinish(){
+    void inputFinish() {
         Scanner scanner = TestUtil.genScanner("""
                 종료
                 """.stripIndent());
@@ -33,7 +34,7 @@ public class AppTest {
 
     @Test
     @DisplayName("등록 입력 시 명언 및 작가를 입력창이 뜬다.")
-    void inputEnroll(){
+    void inputEnroll() {
         Scanner scanner = TestUtil.genScanner("""
                 등록
                 늦었다고 생각했을 때가 제일 늦었다.
@@ -47,7 +48,7 @@ public class AppTest {
 
     @Test
     @DisplayName("등록 후 안내문 출력")
-    void printOutNotice(){
+    void printOutNotice() {
         String out = run("""
                 등록
                 늦었다고 생각했을 때가 제일 늦었다.
@@ -59,7 +60,7 @@ public class AppTest {
 
     @Test
     @DisplayName("등록 후 안내 번호 증가")
-    void increaseOfIndex(){
+    void increaseOfIndex() {
         String out = run("""
                 등록
                 늦었다고 생각했을 때가 제일 늦었다.
@@ -74,7 +75,7 @@ public class AppTest {
 
     @Test
     @DisplayName("목록 명령어 입력 시 저장된 명언 목록 출력")
-    void printOutList(){
+    void printOutList() {
         String out = run("""
                 목록
                 종료
@@ -85,7 +86,7 @@ public class AppTest {
 
     @Test
     @DisplayName("삭제 명령어를 통해 명언 삭제")
-    void removeContent(){
+    void removeContent() {
         String out = run("""
                 목록
                 삭제?id=1&author=박명수
@@ -98,7 +99,7 @@ public class AppTest {
 
     @Test
     @DisplayName("param이 없는 명령문 예외처리")
-    void paramExceptionHandling(){
+    void paramExceptionHandling() {
         String out = run("""
                 목록
                 삭제?
@@ -124,7 +125,7 @@ public class AppTest {
 
     @Test
     @DisplayName("수정 명령문 시 기존 명언, 작가 출력")
-    void modifyQuotation(){
+    void modifyQuotation() {
         String out = run("""
                 목록
                 삭제?id=2
@@ -136,14 +137,14 @@ public class AppTest {
                 """);
         System.out.println(out);
         assertThat(out).contains("명언(기존) : 늦었다고 생각했을 때가 제일 늦었다.")
-                       .contains("작가(기존) : 박명수")
-                       .contains("1 / 박명수333 / 꿈은 없고요. 그냥 놀고 싶습니다");
+                .contains("작가(기존) : 박명수")
+                .contains("4 / 박명수333 / 꿈은 없고요. 그냥 놀고 싶습니다");
         System.out.println(out);
     }
 
     @Test
     @DisplayName("등록 후 목록 명령어 시 output.txt에서 저장된 파일 나오게 하기")
-    void writeFile(){
+    void writeFile() {
         String out = run("""
                 등록
                 꿈은 없고요. 그냥 놀고 싶습니다
@@ -156,9 +157,10 @@ public class AppTest {
         assertThat(out).contains("output.txt에 저장했습니다.");
 
     }
+
     @Test
     @DisplayName("등록 후 목록 명령어 시 output.txt에서 저장된 파일 나오게 하기")
-    void ReadFile(){
+    void ReadFile() {
         String out = run("""
                 등록
                 꿈은 없고요. 그냥 놀고 싶습니다
@@ -170,21 +172,22 @@ public class AppTest {
                 종료
                 """);
         System.out.println(out);
-        assertThat(out).contains("2 / 박명수 / 늦었다고 생각했을 때가 제일 늦었다.")
-                       .contains("1 / 박명수333 / 꿈은 없고요. 그냥 놀고 싶습니다")
-                       .contains("output.txt에서 가져왔습니다.");
+        assertThat(out).contains("5 / 박명수 / 늦었다고 생각했을 때가 제일 늦었다.")
+                .contains("4 / 박명수333 / 꿈은 없고요. 그냥 놀고 싶습니다")
+                .contains("output.txt에서 가져왔습니다.");
 
     }
+
     @Test
     @DisplayName("등록 없이 목록 명령어 시 목록 나오게 하기")
-    void justReadFile(){
+    void justReadFile() {
         String out = run("""
                 목록
                 종료
                 """);
         System.out.println(out);
-        assertThat(out).contains("2 / 박명수 / 늦었다고 생각했을 때가 제일 늦었다.")
-                .contains("3 / 박명수333 / 꿈은 없고요. 그냥 놀고 싶습니다")
+        assertThat(out).contains("6 / 박명수 / 늦었다고 생각했을 때가 제일 늦었다.")
+                .contains("4 / 박명수333 / 꿈은 없고요. 그냥 놀고 싶습니다")
                 .contains("output.txt에서 가져왔습니다.");
 
     }
