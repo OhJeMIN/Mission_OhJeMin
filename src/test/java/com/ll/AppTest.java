@@ -165,9 +165,45 @@ public class AppTest {
                 목록
                 종료
                 """);
+        System.out.println(out);
         assertThat(out).contains("명언(기존) : 늦었다고 생각했을 때가 제일 늦었다.")
                        .contains("작가(기존) : 박명수")
                        .contains("1 / 박명수333 / 꿈은 없고요. 그냥 놀고 싶습니다");
         System.out.println(out);
+    }
+
+    @Test
+    @DisplayName("등록 후 목록 명령어 시 output.txt에서 저장된 파일 나오게 하기")
+    void writeFile(){
+        String out = run("""
+                등록
+                꿈은 없고요. 그냥 놀고 싶습니다
+                박명수333
+                등록
+                늦었다고 생각했을 때가 제일 늦었다.
+                박명수
+                종료
+                """);
+        assertThat(out).contains("output.txt에 저장했습니다.");
+
+    }
+    @Test
+    @DisplayName("등록 후 목록 명령어 시 output.txt에서 저장된 파일 나오게 하기")
+    void ReadFile(){
+        String out = run("""
+                등록
+                꿈은 없고요. 그냥 놀고 싶습니다
+                박명수333
+                등록
+                늦었다고 생각했을 때가 제일 늦었다.
+                박명수
+                목록
+                종료
+                """);
+        System.out.println(out);
+        assertThat(out).contains("2 / 박명수 / 늦었다고 생각했을 때가 제일 늦었다.")
+                       .contains("1 / 박명수333 / 꿈은 없고요. 그냥 놀고 싶습니다")
+                       .contains("output.txt에서 가져왔습니다.");
+
     }
 }
