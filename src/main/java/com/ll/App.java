@@ -19,23 +19,23 @@ public class App {
             System.out.println("명령) ");
             String cmd = scanner.nextLine();
             Rq rq = new Rq(cmd);
-            if(rq.getCmd().equals("등록")){
-                actionRegister();
-            }
-            else if(rq.getCmd().equals("목록")){
-                actionList();
-            }
-            else if(rq.getCmd().startsWith("삭제")){
-                actionRemove(rq);
-            }
-            else if(rq.getCmd().equals("수정")){
-                actionModify(rq);
-            }
-            else{
-                break;
+            switch (rq.getCmd()){
+                case "종료":
+                    return;
+                case "등록":
+                    actionRegister();
+                    break;
+                case "목록":
+                    actionList();
+                    break;
+                case "삭제":
+                    actionRemove(rq);
+                    break;
+                case "수정":
+                    actionModify(rq);
+                    break;
             }
         }
-
     }
 
     private void actionModify(Rq rq) {
