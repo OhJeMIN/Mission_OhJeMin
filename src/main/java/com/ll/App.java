@@ -57,6 +57,7 @@ public class App {
             System.out.println(id + "번 명언은 존재하지 않습니다.");
             return;
         }
+        readFile();
         Quotation quotation = Quotations.get(num);
         System.out.println("명언(기존) : " + quotation.getContent());
         System.out.print("명언 : ");
@@ -68,6 +69,7 @@ public class App {
 
         quotation.setContent(content);
         quotation.setAuthorName(authorName);
+        writeFileAll();
     }
 
     private void actionRemove(Rq rq) {
@@ -80,7 +82,9 @@ public class App {
             System.out.println(id + "번 명언은 존재하지 않습니다.");
             return;
         }
+        readFile();
         Quotations.remove(num);
+        writeFileAll();
         System.out.println(id + "번 명언이 삭제되었습니다.");
     }
 
@@ -88,7 +92,8 @@ public class App {
         System.out.println("번호 / 작가 / 명언");
         System.out.println("----------------------");
         readFile();
-        //Quotations.reversed().forEach(quotation -> System.out.println(quotation.getId() + " / " + quotation.getAuthorName() + " / " + quotation.getContent()));
+        Quotations.reversed().forEach(quotation -> System.out.println(quotation.getId() + " / " + quotation.getAuthorName() + " / " + quotation.getContent()));
+        System.out.println("output.txt에서 가져왔습니다.");
     }
 
     private void actionRegister() {
@@ -98,22 +103,48 @@ public class App {
         String authorName = scanner.nextLine();
         contentId++;
         Quotation quotation = new Quotation(contentId, content, authorName);
-        Quotations.add(quotation);
+        //To verify writeFile -- 2023-11-08
+        //Quotations.add(quotation);
         writeFile(quotation);
         System.out.println(quotation.getId() + "번 명언이 등록되었습니다.");
     }
 
     int verifyId(int id, int defaultValue) {
+        readFile();
         for (int i = 0; i < Quotations.size(); i++) {
             Quotation quotation = Quotations.get(i);
             if (quotation.getId() == id) {
+                Quotations.clear();
                 return i;
             }
         }
+        Quotations.clear();
         return defaultValue;
     }
+    void writeFileAll() {
+        try {
+            //파일 초기화
+            FileWriter fileWriter = new FileWriter("output.txt");
+            fileWriter.write("");
+            fileWriter.close();
+            FileWriter writer = new FileWriter("output.txt", true);
+            Quotations.forEach(
+                    quotation -> {
+                        try {
+                            writer.write(quotation.getId() + " / " + quotation.getAuthorName() + " / " + quotation.getContent() + '\n');
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+            );
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file.");
+            e.printStackTrace();
+        }
+    }
 
-    void writeFile(Quotation quotation){
+    void writeFile(Quotation quotation) {
         try {
             FileWriter writer = new FileWriter("output.txt", true);
             writer.write(quotation.getId() + " / " + quotation.getAuthorName() + " / " + quotation.getContent() + '\n');
@@ -125,16 +156,16 @@ public class App {
         }
     }
 
-    void readFile(){
+    void readFile() {
         Path file = Paths.get("output.txt");
-
         try {
             List<String> lines = Files.readAllLines(file);
 
             for (String line : lines) {
-                System.out.println(line);
+                String[] lineBits = line.split(" / ",3);
+                Quotation quotation = new Quotation(Integer.parseInt(lineBits[0]), lineBits[2], lineBits[1]);
+                Quotations.add(quotation);
             }
-            System.out.println("output.txt에서 가져왔습니다.");
         } catch (IOException e) {
             System.out.println("An error occurred while reading the file.");
             e.printStackTrace();

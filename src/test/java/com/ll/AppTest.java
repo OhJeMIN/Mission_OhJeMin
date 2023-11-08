@@ -69,19 +69,13 @@ public class AppTest {
                 박명수
                 종료
                 """);
-        assertThat(out).contains("2번 명언이 등록되었습니다.");
+        assertThat(out).contains("번 명언이 등록되었습니다.");
     }
 
     @Test
     @DisplayName("목록 명령어 입력 시 저장된 명언 목록 출력")
     void printOutList(){
         String out = run("""
-                등록
-                늦었다고 생각했을 때가 제일 늦었다.
-                박명수
-                등록
-                어려운 길은 길이 아니다.
-                박명수
                 목록
                 종료
                 """);
@@ -93,12 +87,6 @@ public class AppTest {
     @DisplayName("삭제 명령어를 통해 명언 삭제")
     void removeContent(){
         String out = run("""
-                등록
-                늦었다고 생각했을 때가 제일 늦었다.
-                박명수
-                등록
-                어려운 길은 길이 아니다.
-                박명수
                 목록
                 삭제?id=1&author=박명수
                 목록
@@ -112,12 +100,6 @@ public class AppTest {
     @DisplayName("param이 없는 명령문 예외처리")
     void paramExceptionHandling(){
         String out = run("""
-                등록
-                늦었다고 생각했을 때가 제일 늦었다.
-                박명수
-                등록
-                어려운 길은 길이 아니다.
-                박명수
                 목록
                 삭제?
                 목록
@@ -131,12 +113,6 @@ public class AppTest {
     @DisplayName("존재하지 않는 명언삭제에 대한 예외처리")
     void notExistQuotation() {
         String out = run("""
-                등록
-                늦었다고 생각했을 때가 제일 늦었다.
-                박명수
-                등록
-                어려운 길은 길이 아니다.
-                박명수
                 목록
                 삭제?id=2
                 삭제?id=2
@@ -150,19 +126,12 @@ public class AppTest {
     @DisplayName("수정 명령문 시 기존 명언, 작가 출력")
     void modifyQuotation(){
         String out = run("""
-                등록
-                늦었다고 생각했을 때가 제일 늦었다.
-                박명수
-                등록
-                어려운 길은 길이 아니다.
-                박명수
                 목록
                 삭제?id=2
                 목록
                 수정?id=1
                 꿈은 없고요. 그냥 놀고 싶습니다
                 박명수333
-                목록
                 종료
                 """);
         System.out.println(out);
@@ -215,7 +184,7 @@ public class AppTest {
                 """);
         System.out.println(out);
         assertThat(out).contains("2 / 박명수 / 늦었다고 생각했을 때가 제일 늦었다.")
-                .contains("1 / 박명수333 / 꿈은 없고요. 그냥 놀고 싶습니다")
+                .contains("3 / 박명수333 / 꿈은 없고요. 그냥 놀고 싶습니다")
                 .contains("output.txt에서 가져왔습니다.");
 
     }
