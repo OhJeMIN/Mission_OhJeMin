@@ -1,6 +1,7 @@
-package com.ll.domain.quotation;
+package com.ll.domain.quotation.quotation.controller;
 
 import com.ll.base.Rq;
+import com.ll.domain.quotation.Quotation;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -153,6 +154,15 @@ public class QuotationController {
         } catch (IOException e) {
             System.out.println("An error occurred while reading the file.");
             e.printStackTrace();
+        }
+    }
+
+    public void dispatch(Rq rq) {
+        switch (rq.getCmd()){
+            case "삭제" -> actionRemove(rq);
+            case "수정" -> actionModify(rq);
+            case "목록" -> actionList();
+            case "등록" -> actionRegister();
         }
     }
 }
