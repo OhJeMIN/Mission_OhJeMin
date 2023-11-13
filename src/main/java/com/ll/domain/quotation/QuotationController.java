@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class QuotationController {
-    private Scanner scanner;
-    private int contentId;
+    private final Scanner scanner;
+    private long contentId;
     private List<Quotation> Quotations;
 
     public QuotationController(Scanner scanner){
@@ -83,10 +83,10 @@ public class QuotationController {
         resetFileAndOverride();
     }
 
-    private int filesMaxId(int defaultValue){
+    private long filesMaxId(long defaultValue){
         readFile();
         try{
-            int maxId =  Quotations.get(Quotations.size()-1).getId();
+            long maxId =  Quotations.get(Quotations.size()-1).getId();
             Quotations.clear();
             return maxId;
         }catch (IndexOutOfBoundsException e){
